@@ -1,9 +1,35 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.compose)
 }
+
+// Optional release signing: copy keystore.properties.example -> keystore.properties
+// or set BITCHAT_STORE_FILE / BITCHAT_STORE_PASSWORD / BITCHAT_KEY_ALIAS / BITCHAT_KEY_PASSWORD.
+// See docs/PLAY_STORE_RELEASE.md
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties().apply {
+    if (keystorePropertiesFile.exists()) {
+        keystorePropertiesFile.inputStream().use { load(it) }
+    }
+}
+
+fun releaseSigningValue(propertyName: String, envName: String): String? =
+    keystoreProperties.getProperty(propertyName)?.takeIf { it.isNotBlank() }
+        ?: System.getenv(envName)?.takeIf { it.isNotBlank() }
+
+val releaseStoreFilePath = releaseSigningValue("storeFile", "BITCHAT_STORE_FILE")
+val releaseStorePassword = releaseSigningValue("storePassword", "BITCHAT_STORE_PASSWORD")
+val releaseKeyAlias = releaseSigningValue("keyAlias", "BITCHAT_KEY_ALIAS")
+val releaseKeyPassword = releaseSigningValue("keyPassword", "BITCHAT_KEY_PASSWORD")
+val hasReleaseSigning =
+    releaseStoreFilePath != null &&
+        releaseStorePassword != null &&
+        releaseKeyAlias != null &&
+        releaseKeyPassword != null
 
 android {
     namespace = "com.bitchat.android"
@@ -29,6 +55,17 @@ android {
         includeInBundle = false
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                storeFile = rootProject.file(releaseStoreFilePath!!)
+                storePassword = releaseStorePassword
+                keyAlias = releaseKeyAlias
+                keyPassword = releaseKeyPassword
+            }
+        }
+    }
+
     buildTypes {
         debug {
             ndk {
@@ -43,6 +80,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            if (hasReleaseSigning) {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
 

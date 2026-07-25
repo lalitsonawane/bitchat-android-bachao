@@ -1,0 +1,4 @@
+Version 1.7.5 (36)
+
+- Maintenance and stability improvements
+- See GitHub releases for full details: https://github.com/permissionlesstech/bitchat-android/releases

@@ -243,39 +243,44 @@ The Android implementation maintains 100% binary protocol compatibility with iOS
 
 ## Publishing to Google Play
 
-### Preparation
+The official app is already on Play Store as [`com.bitchat.droid`](https://play.google.com/store/apps/details?id=com.bitchat.droid).
 
-1. **Update version information:**
-   ```kotlin
-   // In app/build.gradle.kts
-   defaultConfig {
-       versionCode = 2  // Increment for each release
-       versionName = "1.1.0"  // User-visible version
-   }
-   ```
+For a full release checklist (signing, Fastlane assets, Console declarations):
 
-2. **Create a signed release build:**
+- **[docs/PLAY_STORE_RELEASE.md](docs/PLAY_STORE_RELEASE.md)**
+- **[docs/PLAY_CONSOLE_DECLARATIONS.md](docs/PLAY_CONSOLE_DECLARATIONS.md)**
+
+### Quick build steps
+
+1. **Bump versions** in `app/build.gradle.kts` (`versionCode` / `versionName`).
+2. **Configure signing** (optional until upload):
+
    ```bash
-   ./gradlew assembleRelease
+   cp keystore.properties.example keystore.properties
+   # edit keystore.properties with your upload keystore path and secrets
    ```
 
-3. **Generate app bundle (recommended for Play Store):**
+3. **Generate a signed App Bundle** (recommended for Play):
+
    ```bash
    ./gradlew bundleRelease
    ```
 
+4. Upload `app/build/outputs/bundle/release/app-release.aab` in Play Console.
+
 ### Play Store Requirements
 
-- **Target API**: Latest Android API (currently 34)
-- **Privacy Policy**: Required for apps requesting sensitive permissions
-- **App Permissions**: Justify Bluetooth and location usage
-- **Content Rating**: Complete questionnaire for age-appropriate content
+- **Target API**: Latest Android API required by Play (currently 35 in this repo)
+- **Privacy Policy**: https://github.com/permissionlesstech/bitchat-android/blob/main/PRIVACY_POLICY.md
+- **App Permissions**: Justify Bluetooth, location (including background), mic, camera, nearby devices
+- **Content Rating**: Complete the IARC questionnaire
+- **Data safety**: See the declaration draft linked above
 
 ### Distribution
 
 - **Google Play Store**: Main distribution channel
 - **F-Droid**: For open-source distribution
-- **Direct APK**: For testing and development
+- **Direct APK**: GitHub Releases / testing
 
 ## Cross-Platform Communication
 

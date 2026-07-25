@@ -56,9 +56,10 @@ gen/
 # Google services
 google-services.json
 
-# Keystore files
+# Keystore files and local signing secrets
 *.jks
 *.keystore
+keystore.properties
 
 # Arti build artifacts (cloned repo and Rust build cache)
 tools/arti-build/.arti-source/
