@@ -1,1 +1,1 @@
-IRC style chat over Bluetooth mesh
+Decentralized peer-to-peer chat over Bluetooth mesh and geohash channels.

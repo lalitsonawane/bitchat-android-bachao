@@ -1,1 +1,10 @@
-A secure, decentralized, peer-to-peer messaging app that works over Bluetooth mesh networks. No internet required, no servers, no phone numbers - just pure encrypted communication.
+A decentralized peer-to-peer messaging app that works over Bluetooth mesh networks. bitchat lets you talk to anyone nearby even when the internet is blocked, overloaded, or unavailable.
+
+No registration, no phone numbers, no tracking, no ads. Just install and start chatting. Free and open source.
+
+Also join location-based geohash channels to talk with people in your neighborhood, city, province, or region. You can leave notes at a location for anyone who passes by. Stay connected anywhere, on your terms.
+
+Bluetooth mesh chats work offline. Geohash channels use the internet via public Nostr relays and share only a coarse geohash—never precise GPS—with those relays.
+
+Privacy policy: https://github.com/permissionlesstech/bitchat-android/blob/main/PRIVACY_POLICY.md
+Source: https://github.com/permissionlesstech/bitchat-android

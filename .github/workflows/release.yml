@@ -62,7 +62,9 @@ jobs:
           ls -all
           tree || ls -R
 
-      # Optional: Sign APKs (uncomment and configure secrets when ready)
+      # Optional: Sign APKs for GitHub Releases.
+      # Prefer Gradle signing for Play AABs (keystore.properties / BITCHAT_* env vars).
+      # See docs/PLAY_STORE_RELEASE.md
       # - name: Sign APKs
       #   uses: r0adkll/sign-android-release@v1
       #   with:

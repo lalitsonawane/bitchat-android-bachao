@@ -143,7 +143,8 @@ If we update this policy:
 ## Contact
 
 bitchat is an open source project. For privacy questions:
-- Review our code: https://github.com/yourusername/bitchat
+- Review our code: https://github.com/permissionlesstech/bitchat-android
+- Privacy policy (this document): https://github.com/permissionlesstech/bitchat-android/blob/main/PRIVACY_POLICY.md
 - Open an issue on GitHub
 - Join the discussion in public rooms
 
